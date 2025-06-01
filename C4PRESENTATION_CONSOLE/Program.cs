@@ -102,7 +102,6 @@ Environment.Exit(0);
 
 public class ClienteApp
 {
-
     public static void Listar(IClienteService _service)
     {
         Console.WriteLine("\nListar");
