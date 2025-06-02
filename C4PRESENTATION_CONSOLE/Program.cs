@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using C4PRESENTATION_CONSOLE.FluentValidation;
 
-#region CONFIGURAÇÃO IOC DI
+#region CONFIGURAÇÃO
 
 var serviceCollection = new ServiceCollection();
 
@@ -27,7 +27,7 @@ var _service = serviceProvider.GetService<IClienteService>();
 
 #endregion
 
-#region C4PRESENTATION
+#region MENU
 
 if (_serviceSQLite != null)
 {
@@ -41,7 +41,7 @@ if (_serviceSQLite != null)
     }
 }
 
-Console.WriteLine("fcouto1331 - P2025_FluentValidation");
+Console.WriteLine("fcouto1331 - P2025_FluentValidation\n");
 if (_service != null)
 {
     try
@@ -51,7 +51,7 @@ if (_service != null)
         {
             Console.Clear();
 
-            Console.WriteLine("\n1 - Listar");
+            Console.WriteLine("1 - Listar");
             Console.WriteLine("2 - Criar");
             Console.WriteLine("3 - Alterar");
             Console.WriteLine("4 - Excluir");
@@ -96,14 +96,14 @@ Environment.Exit(0);
 
 #endregion
 
-#region C3APPLICATION
+#region COMANDOS
 
 public class ClienteApp
 {
     public static void Listar(IClienteService _service)
     {
         Console.WriteLine("\nListar");
-        List<ClienteDTO> cliente = Mapping.ToListClienteDTO(_service.Listar());
+        List<ClienteDTO> cliente = Mapper.ToListClienteDTO(_service.Listar());
         foreach (var item in cliente)
         {
             Console.WriteLine($"Id: {item.Id}, Nome: {item.Nome}, IdGuid: {item.IdGuid}, Telefone: {item.Telefone}, Cidade: {item.Cidade}");
@@ -140,7 +140,7 @@ public class ClienteApp
         }
         // FIM 
 
-        _service.Criar(Mapping.ToCliente(cliente));
+        _service.Criar(Mapper.ToCliente(cliente));
         Listar(_service);
     }
 
@@ -150,7 +150,7 @@ public class ClienteApp
         
         Console.Write("Id:");
         int id = Convert.ToInt32(Console.ReadLine());
-        ClienteDTO cliente = Mapping.ToClienteDTO(_service.PegarPorId(id));
+        ClienteDTO cliente = Mapper.ToClienteDTO(_service.PegarPorId(id));
         Console.WriteLine($"Id: {cliente.Id}, Nome: {cliente.Nome}, IdGuid: {cliente.IdGuid}, Telefone: {cliente.Telefone}, Cidade: {cliente.Cidade}");
 
         Console.Write("Nome: ");
@@ -179,7 +179,7 @@ public class ClienteApp
         }
         // FIM 
 
-        _service.Alterar(Mapping.ToCliente(cliente2), cliente.Id);
+        _service.Alterar(Mapper.ToCliente(cliente2), cliente.Id);
         Listar(_service);
     }
 
@@ -191,7 +191,6 @@ public class ClienteApp
         _service.Excluir(id);
         Listar(_service);
     }
-
 }
 
 #endregion
