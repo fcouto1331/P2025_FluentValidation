@@ -10,9 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using C4PRESENTATION_CONSOLE.FluentValidation;
 
-#region IoC
+#region CONFIGURAÇÃO IOC DI
 
-// Configurar o contêiner de serviços
 var serviceCollection = new ServiceCollection();
 
 serviceCollection.AddScoped<SQLiteContext>();
@@ -23,13 +22,12 @@ serviceCollection.AddTransient<IClienteService, ClienteService>();
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
-// Resolver o contêiner de serviço
 var _serviceSQLite = serviceProvider.GetService<SQLiteConfig>();
 var _service = serviceProvider.GetService<IClienteService>();
 
 #endregion
 
-#region Presentation
+#region C4PRESENTATION
 
 if (_serviceSQLite != null)
 {
@@ -98,7 +96,7 @@ Environment.Exit(0);
 
 #endregion
 
-#region Application
+#region C3APPLICATION
 
 public class ClienteApp
 {
